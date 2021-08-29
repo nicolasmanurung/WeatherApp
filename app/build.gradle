@@ -87,7 +87,8 @@ dependencies {
     kaptAndroidTest "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
 
     // Third Library
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 }

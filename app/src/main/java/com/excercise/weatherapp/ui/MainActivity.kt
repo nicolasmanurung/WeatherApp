@@ -1,21 +1,32 @@
-package com.excercise.weatherapp
+package com.excercise.weatherapp.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
+import com.excercise.weatherapp.R
 import com.excercise.weatherapp.databinding.ActivityMainBinding
+import com.excercise.weatherapp.ui.bottomfragment.BottomListWeatherFragment
+import com.excercise.weatherapp.utils.activityContext
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val LOCATION_SETTING_REQUEST = 2
+    }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,9 +39,16 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.toolbar.setOnClickListener {
+            val bottomDialog = BottomListWeatherFragment()
+            val fm =
+                (binding.root.context.activityContext() as FragmentActivity).supportFragmentManager
+
+            bottomDialog.apply {
+                show(
+                    fm, BottomListWeatherFragment.TAG
+                )
+            }
         }
     }
 
